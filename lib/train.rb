@@ -24,10 +24,9 @@ attr_reader(:name, :id)
    end
 
    define_singleton_method(:find) do |id|
-     @id = id
-     result = DB.exec("SELECT * FROM trains WHERE id = #{@id};")
-     @name = result.first().fetch('name')
-     Train.new({:name => @name, :id => @id})
+     result = DB.exec("SELECT * FROM trains WHERE id = #{id};")
+     name = result.first().fetch('name')
+     Train.new({:name => name, :id => id})
    end
 
    define_method(:==) do |another_train|
