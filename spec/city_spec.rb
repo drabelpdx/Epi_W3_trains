@@ -22,4 +22,22 @@ describe (City) do
     end
   end
 
+  describe(".find") do
+    it("returns a city by its id") do
+      test_city = City.new({:name => "Portland", :id => nil})
+      test_city.save()
+      test_city2 = City.new({:name => "Seattle", :id => nil})
+      test_city2.save()
+      expect(City.find(test_city2.id())).to(eq(test_city2))
+    end
+  end
+
+  describe('#==') do
+    it('is the same city if it has the same name and id') do
+      city = City.new({:name => "Portland", :id => nil })
+      city2 = City.new ({:name => "Portland", :id => nil})
+      expect(city).to(eq(city2))
+    end
+  end
+
 end

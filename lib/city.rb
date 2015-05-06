@@ -22,4 +22,14 @@ class City
      @id = result.first().fetch("id").to_i()
    end
 
+   define_singleton_method(:find) do |id|
+     @id = id
+     result = DB.exec("SELECT * FROM cities WHERE id = #{@id};")
+     @name = result.first().fetch('name')
+     City.new({:name => @name, :id => @id})
+   end
+
+   define_method(:==) do |another_city|
+     self.name().==(another_city.name()).&(self.id().==(another_city.id()))
+   end
  end
