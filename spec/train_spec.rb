@@ -13,6 +13,12 @@ describe(Train) do
     it('returns the id') do
     train = Train.new({:name => 'Red Line', :id => 1})
     expect(train.id()).to(eq(1))
+    end
   end
-end
+
+  describe(".all") do
+    it("starts off empty") do
+      expect(Train.all()).to(eq([]))
+    end
+  end
 end
