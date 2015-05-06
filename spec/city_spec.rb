@@ -9,6 +9,13 @@ describe (City) do
     end
   end
 
+  describe('#id') do
+    it('returns the id')do
+    city = City.new ({:name => "Portland", :id => 1})
+    expect(city.id()).to(eq(1))
+    end
+  end
+
 
 
 end
