@@ -33,4 +33,10 @@ attr_reader(:name, :id)
    define_method(:==) do |another_train|
      self.name().==(another_train.name()).&(self.id().==(another_train.id()))
     end
+
+    define_method(:update) do |attributes|
+      @name = attributes.fetch(:name, @name)
+      @id = self.id()
+      DB.exec("UPDATE trains SET name = '#{@name}' WHERE id = #{@id};")
+    end
 end
