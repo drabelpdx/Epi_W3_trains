@@ -22,4 +22,15 @@ attr_reader(:name, :id)
      result = DB.exec("INSERT INTO trains (name) VALUES ('#{@name}') RETURNING id;")
      @id = result.first().fetch('id').to_i()
    end
+
+   define_singleton_method(:find) do |id|
+     @id = id
+     result = DB.exec("SELECT * FROM trains WHERE id = #{@id};")
+     @name = result.first().fetch('name')
+     Train.new({:name => @name, :id => @id})
+   end
+
+   define_method(:==) do |another_train|
+     self.name().==(another_train.name()).&(self.id().==(another_train.id()))
+    end
 end
