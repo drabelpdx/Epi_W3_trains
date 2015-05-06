@@ -16,6 +16,10 @@ describe (City) do
     end
   end
 
-
+  describe(".all") do
+    it("starts off empty") do
+      expect(City.all()).to(eq([]))
+    end
+  end
 
 end
