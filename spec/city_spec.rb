@@ -40,4 +40,13 @@ describe (City) do
     end
   end
 
+  describe('#update') do
+    it('lets you update cities in the database') do
+      city = City.new({:name => 'Portland', :id => nil})
+      city.save()
+      city.update({:name => 'Seattle'})
+      expect(city.name()).to(eq('Seattle'))
+    end
+  end
+
 end

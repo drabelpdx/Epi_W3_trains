@@ -32,4 +32,10 @@ class City
    define_method(:==) do |another_city|
      self.name().==(another_city.name()).&(self.id().==(another_city.id()))
    end
+
+   define_method(:update) do |attributes|
+     @name = attributes.fetch(:name, @name)
+     @id = self.id()
+     DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = #{@id};")
+   end
  end
