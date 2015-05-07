@@ -35,11 +35,27 @@ attr_reader(:name, :id)
 
     define_method(:update) do |attributes|
       @name = attributes.fetch(:name, @name)
-      @id = self.id()
       DB.exec("UPDATE trains SET name = '#{@name}' WHERE id = #{@id};")
+
+      attributes.fetch(:city_ids, []).each() do |city_id|
+        DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{self.id()}, #{city_id});")
+      end
     end
 
     define_method(:delete) do
       DB.exec("DELETE FROM trains WHERE id = #{self.id()};")
     end
+
+    define_method(:cities) do
+      train_cities = []
+      results = DB.exec("SELECT city_id FROM cities_trains WHERE train_id = #{self.id()};")
+      results.each() do |result|
+      city_id = result.fetch("city_id").to_i()
+      city = DB.exec("SELECT * FROM cities WHERE id = #{city_id};")
+      name = city.first().fetch("name")
+      train_cities.push(City.new({:name => name, :id => city_id}))
+    end
+    train_cities
+  end
+
 end

@@ -1,13 +1,28 @@
 <h3> Here are all the train routes in the system</h3>
+
+
  <% if @trains.any?() %>
    <p>trains</p>
      <ul>
        <% @trains.each do |train| %>
          <li><a href="/trains/<%= train.id() %>"><%= train.name() %></a></li>
-
        <% end %>
       </ul>
 
       <% else %>
       <p>There are no train routes yet.</p>
       <% end %>
+
+      <p>Add a train route to the database</p>
+
+      <form action='/train' method='post'>
+        <label for='name'>Train route name:</label>
+        <input id='name' name='name' type='text'>
+
+        <button type='submit'>Add Train</button>
+      </form>
+
+      <div class ="container">
+        <a href="/">Return to Main Page</a>
+        <a href="/cities">View All Cities</a>
+      </div>
